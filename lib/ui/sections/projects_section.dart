@@ -166,7 +166,11 @@ class _PhoneProjectCardState extends State<_PhoneProjectCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // iPhone Hardware Mockup
-          MouseRegion(
+          GestureDetector(
+            onTapDown: (_) => setState(() => isHovered = true),
+            onTapUp: (_) => setState(() => isHovered = false),
+            onTapCancel: () => setState(() => isHovered = false),
+            child: MouseRegion(
             onEnter: (_) => setState(() => isHovered = true),
             onExit: (_) => setState(() => isHovered = false),
             child: AnimatedContainer(
@@ -301,7 +305,7 @@ class _PhoneProjectCardState extends State<_PhoneProjectCard> {
                 ],
               ),
             ),
-          ),
+          )),
           const SizedBox(height: 32),
           // Project Info
           Text(
