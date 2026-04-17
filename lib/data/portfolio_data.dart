@@ -1,14 +1,46 @@
+import 'package:flutter/material.dart';
+
 class PortfolioData {
   // HERO SECTION
   static const String name = "Nikhar Tale";
   static const String role = "Building AI-Powered\nMobile Experiences.";
   static const String bio =
-      "Senior Flutter Engineer specializing in Clean Architecture, offline-first applications, and on-device TFLite integrations. Currently architecting high-performance solutions at Zehntech.";
+      "Senior Flutter Engineer specializing in Clean Architecture, offline-first applications, and on-device TFLite integrations. Currently architecting high-performance solutions at Infosys.";
   static const String email = "nikhartale12@gmail.com";
-  static const String phone = "+91 9876543210"; // Replace with real number
+  static const String phone = "+91 7000391986"; // Replace with real number
   static const String github = "https://github.com/nikhar-tale";
   static const String linkedin =
       "https://linkedin.com/in/nikhar-tale-3359b41a2";
+
+  // STATS
+  static const List<Map<String, String>> stats = [
+    {"value": "4+", "label": "Years Experience"},
+    {"value": "5+", "label": "Apps in Production"},
+    {"value": "10k+", "label": "Daily Active Users"},
+    {"value": "99.9%", "label": "Crash-Free Rate"},
+  ];
+
+  // EXPERTISE
+  static const List<Map<String, dynamic>> expertise = [
+    {
+      "icon": Icons.architecture,
+      "title": "Architecture & State",
+      "description":
+          "Deep expertise in feature-first Clean Architecture, BLoC pattern, and building robust offline-first synchronization using Hive and SQLite.",
+    },
+    {
+      "icon": Icons.memory,
+      "title": "AI & Edge Computing",
+      "description":
+          "Integrating on-device machine learning with TFLite, enabling real-time computer vision, auto-grading pipelines, and low-latency local processing.",
+    },
+    {
+      "icon": Icons.devices,
+      "title": "Native & Hardware",
+      "description":
+          "Bridging the gap between Flutter and native platforms using Method Channels, CameraX, and Bluetooth integrations for POS and IoT devices.",
+    },
+  ];
 
   // EXPERIENCE
   static const List<Map<String, dynamic>> experience = [
@@ -81,9 +113,9 @@ class PortfolioData {
       "tech": ["Flutter", "CameraX", "Image Processing", "Accessibility"],
       "playStoreUrl":
           "https://play.google.com/store/apps/details?id=com.humanware.hwmagnifier",
-          "appStoreUrl":
+      "appStoreUrl":
           "https://apps.apple.com/in/app/humanware-explorē-magnifier/id6443956466", // Replace with real link
-      "imageUrl": "assets/images/humanWare_explore_magnifier.webp", 
+      "imageUrl": "assets/images/humanWare_explore_magnifier.webp",
     },
     {
       "title": "AI Grading Engine",

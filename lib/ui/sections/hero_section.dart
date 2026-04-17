@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'dart:math' as math;
+import 'dart:ui';
 
 class HeroSection extends StatelessWidget {
   final VoidCallback onViewProjects;
@@ -15,9 +16,9 @@ class HeroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, sizingInformation) {
-        final isMobile = sizingInformation.isMobile;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 800;
         final screenHeight = MediaQuery.of(context).size.height;
 
         return Container(
@@ -26,21 +27,26 @@ class HeroSection extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // --- BACKGROUND TECH CONSTELLATION ---
-              // Flutter
-              _FloatingIcon(icon: SimpleIcons.flutter, color: const Color(0xFF54C5F8), alignment: Alignment(isMobile ? -0.85 : -0.8, isMobile ? -0.7 : -0.4), size: isMobile ? 35 : 60, delay: 0, isMobile: isMobile),
-              // Firebase
-              _FloatingIcon(icon: SimpleIcons.firebase, color: const Color(0xFFFFCA28), alignment: Alignment(isMobile ? 0.85 : 0.75, isMobile ? -0.75 : -0.5), size: isMobile ? 30 : 50, delay: 2, isMobile: isMobile),
-              // AWS
-              _FloatingIcon(icon: FontAwesomeIcons.aws, color: const Color(0xFFFF9900), alignment: Alignment(isMobile ? -0.8 : -0.7, isMobile ? 0.6 : 0.3), size: isMobile ? 25 : 45, delay: 1, isMobile: isMobile),
-              // Dart
-              _FloatingIcon(icon: SimpleIcons.dart, color: const Color(0xFF0175C2), alignment: Alignment(isMobile ? 0.8 : 0.85, isMobile ? 0.5 : 0.4), size: isMobile ? 30 : 55, delay: 3, isMobile: isMobile),
-              // TensorFlow
-              _FloatingIcon(icon: SimpleIcons.tensorflow, color: const Color(0xFFFF6F00), alignment: Alignment(isMobile ? -0.6 : -0.4, isMobile ? 0.85 : 0.65), size: isMobile ? 25 : 40, delay: 2.5, isMobile: isMobile),
-              // Android
-              _FloatingIcon(icon: SimpleIcons.android, color: const Color(0xFF3DDC84), alignment: Alignment(isMobile ? 0.6 : 0.4, isMobile ? 0.8 : 0.7), size: isMobile ? 25 : 45, delay: 1.5, isMobile: isMobile),
-              // Apple / iOS
-              _FloatingIcon(icon: SimpleIcons.apple, color: Colors.white, alignment: Alignment(isMobile ? -0.4 : -0.2, isMobile ? -0.85 : -0.8), size: isMobile ? 20 : 40, delay: 0.5, isMobile: isMobile),
+              // --- CRAZY ANIMATED AURORA BACKGROUND ---
+              const Positioned.fill(
+                child: _AnimatedAuroraBackground(),
+              ),
+
+              // Background floating brand icons
+              // Flutter (Light Blue)
+              _FloatingIcon(icon: SimpleIcons.flutter, color: const Color(0xFF54C5F8), alignment: Alignment(isMobile ? -0.8 : -0.6, isMobile ? -0.8 : -0.7), size: isMobile ? 30 : 60, delay: 0.0, isMobile: isMobile),
+              // Firebase (Yellow/Orange)
+              _FloatingIcon(icon: SimpleIcons.firebase, color: const Color(0xFFFFCA28), alignment: Alignment(isMobile ? 0.7 : 0.5, isMobile ? -0.9 : -0.6), size: isMobile ? 25 : 50, delay: 1.5, isMobile: isMobile),
+              // AWS (Orange)
+              _FloatingIcon(icon: FontAwesomeIcons.aws, color: const Color(0xFFFF9900), alignment: Alignment(isMobile ? -0.9 : -0.7, isMobile ? 0.1 : 0.2), size: isMobile ? 20 : 40, delay: 0.8, isMobile: isMobile),
+              // Apple (White)
+              _FloatingIcon(icon: FontAwesomeIcons.apple, color: Colors.white, alignment: Alignment(isMobile ? 0.8 : 0.6, isMobile ? 0.2 : 0.1), size: isMobile ? 25 : 45, delay: 2.2, isMobile: isMobile),
+              // Android (Green)
+              _FloatingIcon(icon: FontAwesomeIcons.android, color: const Color(0xFF3DDC84), alignment: Alignment(isMobile ? -0.7 : -0.5, isMobile ? 0.8 : 0.7), size: isMobile ? 35 : 70, delay: 1.2, isMobile: isMobile),
+              // Dart (Blue)
+              _FloatingIcon(icon: SimpleIcons.dart, color: const Color(0xFF0175C2), alignment: Alignment(isMobile ? 0.9 : 0.7, isMobile ? 0.7 : 0.6), size: isMobile ? 25 : 50, delay: 2.8, isMobile: isMobile),
+              // TensorFlow (Orange)
+              _FloatingIcon(icon: SimpleIcons.tensorflow, color: const Color(0xFFFF6F00), alignment: Alignment(isMobile ? -0.3 : -0.1, isMobile ? -0.95 : -0.85), size: isMobile ? 20 : 35, delay: 0.5, isMobile: isMobile),
               // Shorebird
               _FloatingIcon(icon: FontAwesomeIcons.dove, color: const Color(0xFFE91E63), alignment: Alignment(isMobile ? 0.4 : 0.2, isMobile ? 0.9 : 0.85), size: isMobile ? 20 : 40, delay: 3.5, isMobile: isMobile),
               
@@ -53,10 +59,10 @@ class HeroSection extends StatelessWidget {
                     colors: [
                       AppTheme.background.withOpacity(0.95), // Solid dark center
                       AppTheme.background.withOpacity(0.6),  // Semi-dark middle
-                      AppTheme.background.withOpacity(0.0),  // Transparent edges
+                      AppTheme.background.withOpacity(0.1),  // Almost transparent edges to show aurora
                     ],
                     stops: const [0.2, 0.6, 1.0],
-                    radius: isMobile ? 0.9 : 0.6,
+                    radius: isMobile ? 0.9 : 0.7,
                   ),
                 ),
               ),
@@ -107,7 +113,7 @@ class HeroSection extends StatelessWidget {
                     Text(
                       "Hi, I'm Nikhar Tale.",
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.outfit(
                         fontSize: isMobile ? 24 : 32,
                         fontWeight: FontWeight.w700,
                         color: AppTheme.secondary,
@@ -118,7 +124,7 @@ class HeroSection extends StatelessWidget {
                     Text(
                       "Crafting Native\nExperiences.",
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.outfit(
                         fontSize: isMobile ? 48 : 96,
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
@@ -182,21 +188,6 @@ class HeroSection extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 48),
-                    // Prominent Social Links Row
-                    SelectionArea(
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 24,
-                        runSpacing: 16,
-                        children: [
-                          _SocialLink(icon: Icons.email, text: PortfolioData.email, url: "mailto:${PortfolioData.email}"),
-                          _SocialLink(icon: Icons.phone, text: PortfolioData.phone, url: "tel:${PortfolioData.phone}"),
-                          _SocialLink(icon: FontAwesomeIcons.github, text: "GitHub", url: PortfolioData.github),
-                          _SocialLink(icon: FontAwesomeIcons.linkedin, text: "LinkedIn", url: PortfolioData.linkedin),
-                        ],
-                      ),
                     ),
                   ],
                 ),
@@ -334,6 +325,104 @@ class _SocialLink extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _AnimatedAuroraBackground extends StatefulWidget {
+  const _AnimatedAuroraBackground();
+
+  @override
+  State<_AnimatedAuroraBackground> createState() => _AnimatedAuroraBackgroundState();
+}
+
+class _AnimatedAuroraBackgroundState extends State<_AnimatedAuroraBackground> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 15),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Flutter Web Performance Optimization:
+    // We avoid using BackdropFilter with high sigma values because it causes severe
+    // rendering lag on CanvasKit/WebGL. Instead, we use RadialGradients which
+    // provide the exact same blurred orb effect but cost 0 extra GPU passes!
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        final t = _controller.value * 2 * 3.14159; // 2PI
+        return Stack(
+          children: [
+            // Neon Blue Orb
+            Positioned(
+              left: MediaQuery.of(context).size.width * 0.2 + 200 * math.cos(t),
+              top: 200 + 100 * math.sin(t),
+              child: Container(
+                width: 600,
+                height: 600,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      Colors.blueAccent.withValues(alpha: 0.2),
+                      Colors.blueAccent.withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Hot Pink Orb
+            Positioned(
+              right: MediaQuery.of(context).size.width * 0.2 + 200 * math.cos(t + 2),
+              top: 100 + 150 * math.sin(t + 2),
+              child: Container(
+                width: 700,
+                height: 700,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      Colors.pinkAccent.withValues(alpha: 0.2),
+                      Colors.pinkAccent.withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // Electric Purple Orb
+            Positioned(
+              left: MediaQuery.of(context).size.width * 0.5 + 150 * math.sin(t + 4),
+              bottom: -100 + 100 * math.cos(t + 4),
+              child: Container(
+                width: 800,
+                height: 800,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      Colors.deepPurpleAccent.withValues(alpha: 0.2),
+                      Colors.deepPurpleAccent.withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

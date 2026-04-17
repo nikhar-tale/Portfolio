@@ -13,9 +13,9 @@ class ProjectsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, sizingInformation) {
-        final isMobile = sizingInformation.isMobile;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 800;
 
         return Container(
           width: double.infinity,
@@ -32,7 +32,7 @@ class ProjectsSection extends StatelessWidget {
                     const SizedBox(width: 12),
                     Text(
                       "Featured Work",
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.outfit(
                         fontSize: isMobile ? 32 : 48,
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
@@ -306,7 +306,7 @@ class _PhoneProjectCardState extends State<_PhoneProjectCard> {
           // Project Info
           Text(
             widget.project['title'],
-            style: GoogleFonts.inter(
+            style: GoogleFonts.outfit(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -360,19 +360,19 @@ class _PhoneProjectCardState extends State<_PhoneProjectCard> {
             children: [
               if (widget.project['playStoreUrl'] != null)
                 IconButton(
-                  icon: const Icon(Icons.shop, color: Colors.white),
+                  icon: const Icon(FontAwesomeIcons.googlePlay, color: Colors.white, size: 20),
                   tooltip: "Google Play Store",
                   onPressed: () => launchUrl(Uri.parse(widget.project['playStoreUrl'])),
                 ),
               if (widget.project['appStoreUrl'] != null)
                 IconButton(
-                  icon: const Icon(Icons.apple, color: Colors.white),
+                  icon: const Icon(FontAwesomeIcons.appStoreIos, color: Colors.white, size: 22),
                   tooltip: "Apple App Store",
                   onPressed: () => launchUrl(Uri.parse(widget.project['appStoreUrl'])),
                 ),
               if (widget.project['githubUrl'] != null)
                 IconButton(
-                  icon: const Icon(FontAwesomeIcons.github, color: Colors.white),
+                  icon: const Icon(FontAwesomeIcons.github, color: Colors.white, size: 22),
                   tooltip: "Source Code",
                   onPressed: () => launchUrl(Uri.parse(widget.project['githubUrl'])),
                 ),

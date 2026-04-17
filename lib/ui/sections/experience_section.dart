@@ -9,9 +9,9 @@ class ExperienceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, sizingInformation) {
-        final isMobile = sizingInformation.isMobile;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = constraints.maxWidth < 800;
 
         return Container(
           padding: EdgeInsets.symmetric(
@@ -25,7 +25,7 @@ class ExperienceSection extends StatelessWidget {
             children: [
               Text(
                 "Experience",
-                style: GoogleFonts.inter(
+                style: GoogleFonts.outfit(
                   fontSize: isMobile ? 40 : 64,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
@@ -38,25 +38,6 @@ class ExperienceSection extends StatelessWidget {
                 child: Column(
                   children: PortfolioData.experience.map((exp) {
                     return _ExperienceRow(experience: exp, isMobile: isMobile);
-                  }).toList(),
-                ),
-              ),
-              const SizedBox(height: 40),
-              Text(
-                "Certifications",
-                style: GoogleFonts.inter(
-                  fontSize: isMobile ? 32 : 48,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  letterSpacing: -1,
-                ),
-              ),
-              const SizedBox(height: 40),
-              Container(
-                constraints: const BoxConstraints(maxWidth: 800),
-                child: Column(
-                  children: PortfolioData.certifications.map((cert) {
-                    return _CertificationRow(cert: cert, isMobile: isMobile);
                   }).toList(),
                 ),
               ),
@@ -185,7 +166,7 @@ class _ExperienceRowState extends State<_ExperienceRow> {
       children: [
         AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 300),
-          style: GoogleFonts.inter(
+          style: GoogleFonts.outfit(
             fontSize: 24,
             fontWeight: FontWeight.w700,
             color: _isHovered ? AppTheme.secondary : Colors.white,
@@ -224,92 +205,6 @@ class _ExperienceRowState extends State<_ExperienceRow> {
           );
         }),
       ],
-    );
-  }
-}
-
-class _CertificationRow extends StatefulWidget {
-  final Map<String, String> cert;
-  final bool isMobile;
-
-  const _CertificationRow({required this.cert, required this.isMobile});
-
-  @override
-  State<_CertificationRow> createState() => _CertificationRowState();
-}
-
-class _CertificationRowState extends State<_CertificationRow> {
-  bool _isHovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOutCubic,
-        margin: const EdgeInsets.only(bottom: 24),
-        padding: const EdgeInsets.all(24),
-        transform: Matrix4.translationValues(0, _isHovered ? -5 : 0, 0),
-        decoration: BoxDecoration(
-          color: _isHovered ? Colors.white.withOpacity(0.04) : Colors.white.withOpacity(0.02),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: _isHovered ? AppTheme.secondary.withOpacity(0.3) : Colors.white.withOpacity(0.05),
-          ),
-          boxShadow: _isHovered
-              ? [
-                  BoxShadow(
-                    color: AppTheme.secondary.withOpacity(0.05),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  )
-                ]
-              : [],
-        ),
-        child: Row(
-          children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: _isHovered ? AppTheme.secondary.withOpacity(0.1) : Colors.transparent,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.workspace_premium,
-                color: _isHovered ? AppTheme.secondary : AppTheme.primary,
-                size: 32,
-              ),
-            ),
-            const SizedBox(width: 24),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.cert['title']!,
-                    style: GoogleFonts.inter(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "${widget.cert['issuer']} • ${widget.cert['date']}",
-                    style: GoogleFonts.inter(
-                      fontSize: 16,
-                      color: AppTheme.textSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
