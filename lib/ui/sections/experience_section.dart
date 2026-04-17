@@ -61,6 +61,7 @@ class _ExperienceRow extends StatefulWidget {
 
 class _ExperienceRowState extends State<_ExperienceRow> {
   bool _isHovered = false;
+  bool get _active => _isHovered || widget.isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +78,12 @@ class _ExperienceRowState extends State<_ExperienceRow> {
         margin: const EdgeInsets.only(bottom: 24),
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
-          color: _isHovered ? Colors.white.withOpacity(0.02) : Colors.transparent,
+          color: _active ? Colors.white.withOpacity(0.02) : Colors.transparent,
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: _isHovered ? Colors.white.withOpacity(0.1) : Colors.transparent,
+            color: _active ? Colors.white.withOpacity(0.1) : Colors.transparent,
           ),
-          boxShadow: _isHovered
+          boxShadow: _active
               ? [
                   BoxShadow(
                     color: AppTheme.primary.withOpacity(0.05),
@@ -125,17 +126,17 @@ class _ExperienceRowState extends State<_ExperienceRow> {
           duration: const Duration(milliseconds: 300),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: _isHovered ? AppTheme.secondary.withOpacity(0.1) : Colors.white.withOpacity(0.05),
+            color: _active ? AppTheme.secondary.withOpacity(0.1) : Colors.white.withOpacity(0.05),
             borderRadius: BorderRadius.circular(100),
             border: Border.all(
-              color: _isHovered ? AppTheme.secondary.withOpacity(0.3) : Colors.white.withOpacity(0.05),
+              color: _active ? AppTheme.secondary.withOpacity(0.3) : Colors.white.withOpacity(0.05),
             ),
           ),
           child: Text(
             widget.experience['duration'],
             style: GoogleFonts.inter(
               fontSize: 12,
-              color: _isHovered ? AppTheme.secondary : AppTheme.textSecondary,
+              color: _active ? AppTheme.secondary : AppTheme.textSecondary,
               fontWeight: FontWeight.w600,
               letterSpacing: 1,
             ),
@@ -144,14 +145,14 @@ class _ExperienceRowState extends State<_ExperienceRow> {
         const SizedBox(height: 24),
         Row(
           children: [
-            Icon(Icons.business, size: 20, color: _isHovered ? Colors.white : AppTheme.textSecondary),
+            Icon(Icons.business, size: 20, color: _active ? Colors.white : AppTheme.textSecondary),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
                 widget.experience['company'],
                 style: GoogleFonts.inter(
                   fontSize: 20,
-                  color: _isHovered ? Colors.white : Colors.white.withOpacity(0.8),
+                  color: _active ? Colors.white : Colors.white.withOpacity(0.8),
                   fontWeight: FontWeight.bold,
                 ),
                 maxLines: 2,
@@ -173,7 +174,7 @@ class _ExperienceRowState extends State<_ExperienceRow> {
           style: GoogleFonts.outfit(
             fontSize: 24,
             fontWeight: FontWeight.w700,
-            color: _isHovered ? AppTheme.secondary : Colors.white,
+            color: _active ? AppTheme.secondary : Colors.white,
           ),
           child: Text(widget.experience['role']),
         ),
@@ -190,7 +191,7 @@ class _ExperienceRowState extends State<_ExperienceRow> {
                   child: Icon(
                     Icons.arrow_right_rounded,
                     size: 20,
-                    color: _isHovered ? AppTheme.secondary : AppTheme.textSecondary,
+                    color: _active ? AppTheme.secondary : AppTheme.textSecondary,
                   ),
                 ),
                 Expanded(
@@ -198,7 +199,7 @@ class _ExperienceRowState extends State<_ExperienceRow> {
                     duration: const Duration(milliseconds: 300),
                     style: GoogleFonts.inter(
                       fontSize: 16,
-                      color: _isHovered ? Colors.white.withOpacity(0.9) : AppTheme.textSecondary,
+                      color: _active ? Colors.white.withOpacity(0.9) : AppTheme.textSecondary,
                       height: 1.6,
                     ),
                     child: Text(bullet),

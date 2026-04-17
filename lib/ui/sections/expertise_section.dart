@@ -60,6 +60,7 @@ class _ExpertiseCard extends StatefulWidget {
 
 class _ExpertiseCardState extends State<_ExpertiseCard> {
   bool _isHovered = false;
+  bool get _active => _isHovered || widget.isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +75,12 @@ class _ExpertiseCardState extends State<_ExpertiseCard> {
         duration: const Duration(milliseconds: 300),
         padding: EdgeInsets.all(widget.isMobile ? 24 : 40),
         decoration: BoxDecoration(
-          color: _isHovered ? Colors.white.withValues(alpha: 0.05) : Colors.white.withValues(alpha: 0.02),
+          color: _active ? Colors.white.withValues(alpha: 0.05) : Colors.white.withValues(alpha: 0.02),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: _isHovered ? AppTheme.secondary.withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.05),
+            color: _active ? AppTheme.secondary.withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.05),
           ),
-          boxShadow: _isHovered ? [
+          boxShadow: _active ? [
             BoxShadow(
               color: AppTheme.secondary.withValues(alpha: 0.1),
               blurRadius: 30,

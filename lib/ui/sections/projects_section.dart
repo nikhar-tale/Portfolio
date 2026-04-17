@@ -45,7 +45,7 @@ class ProjectsSection extends StatelessWidget {
               const SizedBox(height: 80),
               // Horizontal App Store style scrolling
               SizedBox(
-                height: 1100, // Increased height for realistic phone proportions + extended tech stack chips
+                height: isMobile ? 950 : 1100, // Tighter height on mobile to prevent dead space
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   clipBehavior: Clip.none, // Allow shadows and hover animations to draw outside
@@ -58,10 +58,10 @@ class ProjectsSection extends StatelessWidget {
                   itemCount: PortfolioData.projects.length,
                   itemBuilder: (context, index) {
                     final cardWidth = isMobile 
-                        ? (MediaQuery.of(context).size.width * 0.85).clamp(200.0, 300.0)
+                        ? (MediaQuery.of(context).size.width * 0.72).clamp(200.0, 240.0) // Clamped smaller to keep mobile phones from getting too tall
                         : 300.0;
                     return Padding(
-                      padding: const EdgeInsets.only(right: 40),
+                      padding: EdgeInsets.only(right: isMobile ? 20 : 40),
                       child: _PhoneProjectCard(
                         project: PortfolioData.projects[index],
                         cardWidth: cardWidth,
@@ -93,6 +93,7 @@ class _PhoneProjectCard extends StatefulWidget {
 
 class _PhoneProjectCardState extends State<_PhoneProjectCard> {
   bool isHovered = false;
+  bool get _active => isHovered || MediaQuery.of(context).size.width < 800;
 
   Widget _getTechIcon(String tech) {
     IconData iconData;
@@ -176,7 +177,7 @@ class _PhoneProjectCardState extends State<_PhoneProjectCard> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeOutCubic,
-              transform: Matrix4.identity()..translate(0.0, isHovered ? -10.0 : 0.0),
+              transform: Matrix4.identity()..translate(0.0, _active ? -10.0 : 0.0),
               child: Stack(
                 children: [
                   // Volume Up Button
@@ -236,7 +237,7 @@ class _PhoneProjectCardState extends State<_PhoneProjectCard> {
                       borderRadius: BorderRadius.circular(45),
                       border: Border.all(color: const Color(0xFF2C2C2C), width: 10),
                       boxShadow: [
-                        if (isHovered)
+                        if (_active)
                           BoxShadow(
                             color: AppTheme.secondary.withOpacity(0.3),
                             blurRadius: 40,
