@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class ExpertiseSection extends StatelessWidget {
   const ExpertiseSection({super.key});
@@ -22,11 +20,8 @@ class ExpertiseSection extends StatelessWidget {
             children: [
               Text(
                 "Technical Arsenal",
-                style: GoogleFonts.outfit(
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   fontSize: isMobile ? 36 : 64,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  letterSpacing: -2,
                 ),
               ),
               SizedBox(height: isMobile ? 40 : 80),
@@ -106,19 +101,15 @@ class _ExpertiseCardState extends State<_ExpertiseCard> {
             const SizedBox(height: 24),
             Text(
               widget.item['title'],
-              style: GoogleFonts.outfit(
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontSize: widget.isMobile ? 20 : 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
               ),
             ),
             const SizedBox(height: 16),
             Text(
               widget.item['description'],
-              style: GoogleFonts.inter(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontSize: widget.isMobile ? 14 : 16,
-                height: 1.6,
-                color: AppTheme.textSecondary,
               ),
             ),
           ],

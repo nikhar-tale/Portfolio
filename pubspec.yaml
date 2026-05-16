@@ -39,6 +39,7 @@ dependencies:
   responsive_builder: ^0.7.1
   font_awesome_flutter: ^10.7.0
   simple_icons: ^14.6.1
+  vector_math: ^2.2.0
 
 dev_dependencies:
   flutter_test:

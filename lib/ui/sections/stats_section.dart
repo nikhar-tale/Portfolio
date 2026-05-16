@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class StatsSection extends StatelessWidget {
   const StatsSection({super.key});
@@ -12,13 +10,14 @@ class StatsSection extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 800;
+        final isDark = Theme.of(context).brightness == Brightness.dark;
         return Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(vertical: isMobile ? 40 : 60),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.02),
+            color: isDark ? Colors.white.withValues(alpha: 0.02) : Colors.black.withValues(alpha: 0.02),
             border: Border.symmetric(
-              horizontal: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
+              horizontal: BorderSide(color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05)),
             ),
           ),
           child: Wrap(
@@ -33,22 +32,19 @@ class StatsSection extends StatelessWidget {
                   children: [
                     Text(
                       stat['value']!,
-                      style: GoogleFonts.outfit(
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
                         fontSize: isMobile ? 32 : 56,
-                        fontWeight: FontWeight.w900,
                         color: AppTheme.secondary,
-                        letterSpacing: -1,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       stat['label']!.toUpperCase(),
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         fontSize: isMobile ? 10 : 12,
-                        fontWeight: FontWeight.w700,
-                        color: AppTheme.textSecondary,
                         letterSpacing: 2,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
                       ),
                     ),
                   ],

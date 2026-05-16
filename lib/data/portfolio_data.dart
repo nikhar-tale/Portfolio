@@ -11,6 +11,7 @@ class PortfolioData {
   static const String github = "https://github.com/nikhar-tale";
   static const String linkedin =
       "https://linkedin.com/in/nikhar-tale-3359b41a2";
+  static const String resumeUrl = "https://drive.google.com/file/d/1FazcseQMiUgtpal3jxYbKL0GNSrmt2GU/view";
 
   // STATS
   static const List<Map<String, String>> stats = [

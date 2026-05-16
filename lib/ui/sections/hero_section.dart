@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'dart:math' as math;
-import 'dart:ui';
 
 class HeroSection extends StatelessWidget {
   final VoidCallback onViewProjects;
@@ -57,9 +55,9 @@ class HeroSection extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: RadialGradient(
                     colors: [
-                      AppTheme.background.withOpacity(0.95), // Solid dark center
-                      AppTheme.background.withOpacity(0.6),  // Semi-dark middle
-                      AppTheme.background.withOpacity(0.1),  // Almost transparent edges to show aurora
+                      AppTheme.background.withValues(alpha: 0.95), // Solid dark center
+                      AppTheme.background.withValues(alpha: 0.6),  // Semi-dark middle
+                      AppTheme.background.withValues(alpha: 0.1),  // Almost transparent edges to show aurora
                     ],
                     stops: const [0.2, 0.6, 1.0],
                     radius: isMobile ? 0.9 : 0.7,
@@ -82,10 +80,10 @@ class HeroSection extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppTheme.surface,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.white.withOpacity(0.1)),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
+                            color: Colors.black.withValues(alpha: 0.5),
                             blurRadius: 20,
                             offset: const Offset(0, 10),
                           ),
@@ -110,38 +108,40 @@ class HeroSection extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 32),
-                    Text(
-                      "Hi, I'm Nikhar Tale.",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.outfit(
-                        fontSize: isMobile ? 24 : 32,
-                        fontWeight: FontWeight.w700,
-                        color: AppTheme.secondary,
-                        letterSpacing: -0.5,
+                    Semantics(
+                      label: "Hero section title",
+                      child: Text(
+                        "Hi, I'm Nikhar Tale.",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                          color: AppTheme.secondary,
+                          fontSize: isMobile ? 24 : 32,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Text(
-                      "Crafting Native\nExperiences.",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.outfit(
-                        fontSize: isMobile ? 48 : 96,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                        height: 1.0,
-                        letterSpacing: -3,
+                    Semantics(
+                      label: "Primary skill proposition",
+                      child: Text(
+                        "Crafting Native\nExperiences.",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          fontSize: isMobile ? 48 : 96,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 24),
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 600),
-                      child: Text(
-                        PortfolioData.bio,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.inter(
-                          fontSize: isMobile ? 18 : 22,
-                          color: AppTheme.textSecondary,
-                          height: 1.5,
+                    Semantics(
+                      label: "Short biography",
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 600),
+                        child: Text(
+                          PortfolioData.bio,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: isMobile ? 18 : 22,
+                            color: AppTheme.textSecondary,
+                          ),
                         ),
                       ),
                     ),
@@ -151,39 +151,80 @@ class HeroSection extends StatelessWidget {
                       spacing: 16,
                       runSpacing: 16,
                       children: [
-                        ElevatedButton(
-                          onPressed: onViewProjects,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.black,
-                            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
+                        Semantics(
+                          button: true,
+                          label: "Navigate to Projects section",
+                          child: ElevatedButton(
+                            onPressed: onViewProjects,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.black,
+                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            "View Projects",
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                            child: Text(
+                              "View Projects",
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () => launchUrl(Uri.parse('mailto:${PortfolioData.email}')),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppTheme.surface,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
+                        Semantics(
+                          button: true,
+                          label: "Download my professional resume",
+                          child: ElevatedButton(
+                            onPressed: () => launchUrl(
+                              Uri.parse(PortfolioData.resumeUrl),
+                              mode: LaunchMode.externalApplication,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white.withValues(alpha: 0.05),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.description_outlined, size: 20),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "Resume",
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          child: Text(
-                            "Get in Touch",
-                            style: GoogleFonts.inter(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                        ),
+                        Semantics(
+                          button: true,
+                          label: "Send me an email to get in touch",
+                          child: ElevatedButton(
+                            onPressed: () => launchUrl(Uri.parse('mailto:${PortfolioData.email}')),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppTheme.surface,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                            ),
+                            child: Text(
+                              "Get in Touch",
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -248,6 +289,10 @@ class _FloatingIconState extends State<_FloatingIcon> with SingleTickerProviderS
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final bubbleColor = isDark ? Colors.white : theme.colorScheme.onSurface;
+
     return Align(
       alignment: widget.alignment,
       child: AnimatedBuilder(
@@ -262,12 +307,12 @@ class _FloatingIconState extends State<_FloatingIcon> with SingleTickerProviderS
         child: Container(
           padding: EdgeInsets.all(widget.isMobile ? 16 : 24),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.03),
+            color: bubbleColor.withValues(alpha: isDark ? 0.03 : 0.05),
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.white.withOpacity(0.05), width: 1),
+            border: Border.all(color: bubbleColor.withValues(alpha: isDark ? 0.05 : 0.1), width: 1),
             boxShadow: [
               BoxShadow(
-                color: widget.color.withOpacity(widget.isMobile ? 0.1 : 0.15),
+                color: widget.color.withValues(alpha: widget.isMobile ? 0.1 : 0.15),
                 blurRadius: widget.isMobile ? 30 : 50,
                 spreadRadius: widget.isMobile ? 5 : 10,
               )
@@ -276,52 +321,7 @@ class _FloatingIconState extends State<_FloatingIcon> with SingleTickerProviderS
           child: Icon(
             widget.icon,
             size: widget.size,
-            color: widget.color.withOpacity(widget.isMobile ? 0.5 : 0.8), // Slightly more transparent on mobile to ensure text readability
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SocialLink extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final String url;
-
-  const _SocialLink({
-    required this.icon,
-    required this.text,
-    required this.url,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => launchUrl(Uri.parse(url)),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, color: AppTheme.textSecondary, size: 16),
-              const SizedBox(width: 8),
-              Text(
-                text,
-                style: GoogleFonts.inter(
-                  color: AppTheme.textSecondary,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+            color: widget.color.withValues(alpha: widget.isMobile ? 0.5 : 0.8), // Slightly more transparent on mobile to ensure text readability
           ),
         ),
       ),
