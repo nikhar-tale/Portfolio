@@ -44,7 +44,7 @@ class ProjectsSection extends StatelessWidget {
               const SizedBox(height: 80),
               // Horizontal App Store style scrolling
               SizedBox(
-                height: isMobile ? 950 : 1100, // Tighter height on mobile to prevent dead space
+                height: isMobile ? 950 : 1200, // Increased height to prevent vertical overflow
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   clipBehavior: Clip.none, // Allow shadows and hover animations to draw outside
