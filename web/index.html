@@ -36,6 +36,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
+  <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <style>
     body {
       background-color: #030303;
@@ -61,7 +65,6 @@
       overflow: hidden;
     }
 
-    /* 3D Cyberpunk Grid */
     .grid-container {
       position: absolute;
       width: 200vw;
@@ -77,7 +80,6 @@
       z-index: 0;
     }
 
-    /* Fades the grid away at the horizon */
     .grid-fade {
       position: absolute;
       inset: 0;
@@ -101,7 +103,7 @@
 
     .loader-wrapper.fade-out {
       opacity: 0;
-      transform: scale(1.15); /* Zoom forward into the app */
+      transform: scale(1.15);
     }
 
     .logo-container {
@@ -114,7 +116,6 @@
       margin-bottom: 20px;
     }
 
-    /* Expanding Ripples Behind Logo */
     .ripple {
       position: absolute;
       top: 50%;
@@ -168,7 +169,7 @@
 
     .status-text {
       margin-top: 16px;
-      font-family: "Courier New", Courier, monospace; /* Tech terminal vibe */
+      font-family: "Courier New", Courier, monospace;
       font-size: 11px;
       font-weight: bold;
       color: rgba(255, 255, 255, 0.6);
@@ -181,23 +182,16 @@
   </style>
 </head>
 <body>
-  <!-- Full Screen Initializer -->
   <div id="loading-indicator">
-    
-    <!-- 3D Infinite Grid -->
     <div class="grid-container"></div>
     <div class="grid-fade"></div>
-
     <div class="loader-wrapper" id="loader-content">
-      
       <div class="logo-container">
-        <!-- Expanding Sonic Ripples -->
         <div class="ripple"></div>
         <div class="ripple"></div>
         <div class="ripple"></div>
         <div class="logo">NT.</div>
       </div>
-
       <div class="progress-container">
         <div class="progress-bar" id="progress-bar"></div>
       </div>
@@ -209,17 +203,19 @@
   </div>
 
   <script>
+    window.flutterWebRenderer = "auto";
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+  
+  <script>
     const progress = document.getElementById('progress-bar');
     const status = document.getElementById('status-message');
     const pct = document.getElementById('percentage');
     
     const messages = [
       "INITIALIZING BOOTSTRAP",
-      "FETCHING WASM BINARIES",
-      "ALLOCATING MEMORY",
-      "COMPILING DART AOT",
-      "HYDRATING UI COMPONENTS",
-      "ESTABLISHING RENDER TREE",
+      "FETCHING ASSETS",
+      "COMPILING DART",
       "READY."
     ];
 
@@ -227,7 +223,7 @@
     let messageIndex = 0;
 
     const interval = setInterval(() => {
-      currentProgress += Math.random() * 15;
+      currentProgress += Math.random() * 10;
       if (currentProgress > 95) currentProgress = 95; 
       
       progress.style.width = currentProgress + '%';
@@ -240,7 +236,7 @@
         messageIndex = newIndex;
         status.innerText = messages[messageIndex];
       }
-    }, 150);
+    }, 200);
 
     window.addEventListener('flutter-first-frame', function() {
       clearInterval(interval);
@@ -260,7 +256,5 @@
       }
     });
   </script>
-
-  <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

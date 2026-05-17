@@ -385,39 +385,41 @@ class _FloatingIconState extends State<_FloatingIcon>
 
     return Align(
       alignment: widget.alignment,
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) {
-          final dy = math.sin(_controller.value * math.pi) *
-              15.0; // Bob up and down by 15 pixels
-          return Transform.translate(
-            offset: Offset(0, dy),
-            child: child,
-          );
-        },
-        child: Container(
-          padding: EdgeInsets.all(widget.isMobile ? 16 : 24),
-          decoration: BoxDecoration(
-            color: bubbleColor.withValues(alpha: isDark ? 0.03 : 0.05),
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: bubbleColor.withValues(alpha: isDark ? 0.05 : 0.1),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color:
-                    widget.color.withValues(alpha: widget.isMobile ? 0.1 : 0.15),
-                blurRadius: widget.isMobile ? 30 : 50,
-                spreadRadius: widget.isMobile ? 5 : 10,
+      child: RepaintBoundary(
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            final dy = math.sin(_controller.value * math.pi) *
+                15.0; // Bob up and down by 15 pixels
+            return Transform.translate(
+              offset: Offset(0, dy),
+              child: child,
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.all(widget.isMobile ? 16 : 24),
+            decoration: BoxDecoration(
+              color: bubbleColor.withValues(alpha: isDark ? 0.03 : 0.05),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: bubbleColor.withValues(alpha: isDark ? 0.05 : 0.1),
               ),
-            ],
-          ),
-          child: Icon(
-            widget.icon,
-            size: widget.size,
-            color: widget.color.withValues(
-              alpha: widget.isMobile ? 0.5 : 0.8,
-            ), // Slightly more transparent on mobile
+              boxShadow: [
+                BoxShadow(
+                  color: widget.color
+                      .withValues(alpha: widget.isMobile ? 0.1 : 0.15),
+                  blurRadius: widget.isMobile ? 30 : 50,
+                  spreadRadius: widget.isMobile ? 5 : 10,
+                ),
+              ],
+            ),
+            child: Icon(
+              widget.icon,
+              size: widget.size,
+              color: widget.color.withValues(
+                alpha: widget.isMobile ? 0.5 : 0.8,
+              ), // Slightly more transparent on mobile
+            ),
           ),
         ),
       ),
@@ -454,70 +456,68 @@ class _AnimatedAuroraBackgroundState extends State<_AnimatedAuroraBackground>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        final t = _controller.value * 2 * 3.14159; // 2PI
-        return Stack(
-          children: [
-            // Neon Blue Orb
-            Positioned(
-              left: MediaQuery.of(context).size.width * 0.2 + 200 * math.cos(t),
-              top: 200 + 100 * math.sin(t),
-              child: Container(
-                width: 600,
-                height: 600,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: RadialGradient(
-                    colors: [
-                      Color.fromARGB(51, 68, 138, 255),
-                      Color.fromARGB(0, 68, 138, 255),
-                    ],
-                  ),
+    final size = MediaQuery.of(context).size;
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          final t = _controller.value * 2 * 3.14159; // 2PI
+          return Stack(
+            children: [
+              // Neon Blue Orb
+              Positioned(
+                left: size.width * 0.2 + 200 * math.cos(t),
+                top: 200 + 100 * math.sin(t),
+                child: const _AuroraOrb(
+                  size: 600,
+                  color: Color.fromARGB(51, 68, 138, 255),
                 ),
               ),
-            ),
-            // Hot Pink Orb
-            Positioned(
-              right:
-                  MediaQuery.of(context).size.width * 0.2 + 200 * math.cos(t + 2),
-              top: 100 + 150 * math.sin(t + 2),
-              child: Container(
-                width: 700,
-                height: 700,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: RadialGradient(
-                    colors: [
-                      Color.fromARGB(51, 255, 64, 129),
-                      Color.fromARGB(0, 255, 64, 129),
-                    ],
-                  ),
+              // Hot Pink Orb
+              Positioned(
+                right: size.width * 0.2 + 200 * math.cos(t + 2),
+                top: 100 + 150 * math.sin(t + 2),
+                child: const _AuroraOrb(
+                  size: 700,
+                  color: Color.fromARGB(51, 255, 64, 129),
                 ),
               ),
-            ),
-            // Electric Purple Orb
-            Positioned(
-              left: MediaQuery.of(context).size.width * 0.5 + 150 * math.sin(t + 4),
-              bottom: -100 + 100 * math.cos(t + 4),
-              child: Container(
-                width: 800,
-                height: 800,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: RadialGradient(
-                    colors: [
-                      Color.fromARGB(51, 124, 77, 255),
-                      Color.fromARGB(0, 124, 77, 255),
-                    ],
-                  ),
+              // Electric Purple Orb
+              Positioned(
+                left: size.width * 0.5 + 150 * math.sin(t + 4),
+                bottom: -100 + 100 * math.cos(t + 4),
+                child: const _AuroraOrb(
+                  size: 800,
+                  color: Color.fromARGB(51, 124, 77, 255),
                 ),
               ),
-            ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _AuroraOrb extends StatelessWidget {
+  const _AuroraOrb({required this.size, required this.color});
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: RadialGradient(
+          colors: [
+            color,
+            color.withValues(alpha: 0),
           ],
-        );
-      },
+        ),
+      ),
     );
   }
 }
