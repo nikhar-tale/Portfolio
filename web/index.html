@@ -1,38 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   
   <!-- Primary Meta Tags -->
-  <title>Nikhar Tale | Senior Mobile Engineer & AI Architect</title>
-  <meta name="title" content="Nikhar Tale | Senior Mobile Engineer & AI Architect">
-  <meta name="description" content="Senior Mobile Engineer specializing in AI-powered mobile experiences, Clean Architecture, and high-performance Flutter applications.">
+  <title>Nikhar Tale | Senior Flutter Architect & AI Engineer</title>
+  <meta name="title" content="Nikhar Tale | Senior Flutter Architect & AI Engineer">
+  <meta name="description" content="Portfolio of Nikhar Tale, a Senior Flutter Engineer specializing in Clean Architecture, AI-powered mobile experiences, and high-performance cross-platform solutions at Infosys.">
+  <meta name="keywords" content="Flutter, Dart, Mobile Engineer, AI, TFLite, Clean Architecture, Nikhar Tale, Infosys, Zehntech, Android, iOS, Web Developer">
+  <meta name="author" content="Nikhar Tale">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Nikhar Tale | Senior Mobile Engineer & AI Architect">
-  <meta property="og:description" content="Senior Mobile Engineer specializing in AI-powered mobile experiences, Clean Architecture, and high-performance Flutter applications.">
+  <meta property="og:url" content="https://github.com/nikhar-tale">
+  <meta property="og:title" content="Nikhar Tale | Senior Flutter Architect & AI Engineer">
+  <meta property="og:description" content="Exploring the intersection of high-performance mobile architecture and on-device AI.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/nikhar-tale/nikhar-tale.github.io/main/assets/thumbnail.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="Nikhar Tale | Senior Mobile Engineer & AI Architect">
-  <meta property="twitter:description" content="Senior Mobile Engineer specializing in AI-powered mobile experiences, Clean Architecture, and high-performance Flutter applications.">
+  <meta property="twitter:url" content="https://github.com/nikhar-tale">
+  <meta property="twitter:title" content="Nikhar Tale | Senior Flutter Architect & AI Engineer">
+  <meta property="twitter:description" content="Exploring the intersection of high-performance mobile architecture and on-device AI.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/nikhar-tale/nikhar-tale.github.io/main/assets/thumbnail.png">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -220,7 +213,6 @@
     const status = document.getElementById('status-message');
     const pct = document.getElementById('percentage');
     
-    // Simulate terminal-like engine loading steps
     const messages = [
       "INITIALIZING BOOTSTRAP",
       "FETCHING WASM BINARIES",
@@ -234,10 +226,9 @@
     let currentProgress = 0;
     let messageIndex = 0;
 
-    // Creates an unpredictable, fast-paced loading bar
     const interval = setInterval(() => {
       currentProgress += Math.random() * 15;
-      if (currentProgress > 95) currentProgress = 95; // Hold at 95% until Flutter finishes
+      if (currentProgress > 95) currentProgress = 95; 
       
       progress.style.width = currentProgress + '%';
       pct.innerText = Math.floor(currentProgress) + '%';
@@ -251,7 +242,6 @@
       }
     }, 150);
 
-    // Fade out and remove the loader exactly when the Flutter Canvas takes over
     window.addEventListener('flutter-first-frame', function() {
       clearInterval(interval);
       progress.style.width = '100%';
@@ -262,7 +252,6 @@
       var content = document.getElementById('loader-content');
       
       if (loader && content) {
-        // Wait exactly 150ms at 100% so the user registers the completion
         setTimeout(() => {
           content.classList.add('fade-out');
           loader.style.opacity = '0';

@@ -13,6 +13,7 @@ import 'package:portfolio_web/ui/sections/projects_section.dart';
 import 'package:portfolio_web/ui/sections/stats_section.dart';
 import 'package:portfolio_web/ui/widgets/mobile_menu_overlay.dart';
 import 'package:portfolio_web/ui/widgets/nav_button.dart';
+import 'package:portfolio_web/ui/widgets/reveal_animation.dart';
 import 'package:portfolio_web/utils/url_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -231,11 +232,11 @@ class _HomePageState extends State<HomePage>
                   onViewProjects: () =>
                       navProvider.scrollTo(navProvider.projectsKey),
                 ),
-                const StatsSection(),
-                const ExpertiseSection(),
-                ProjectsSection(key: navProvider.projectsKey),
-                ExperienceSection(key: navProvider.experienceKey),
-                FooterSection(key: navProvider.contactKey),
+                const RevealAnimation(child: StatsSection()),
+                const RevealAnimation(child: ExpertiseSection()),
+                RevealAnimation(child: ProjectsSection(key: navProvider.projectsKey)),
+                RevealAnimation(child: ExperienceSection(key: navProvider.experienceKey)),
+                RevealAnimation(child: FooterSection(key: navProvider.contactKey)),
               ],
             ),
           ),

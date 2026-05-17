@@ -75,6 +75,7 @@ class _ProjectCardState extends State<_ProjectCard> {
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeOutCubic,
           margin: const EdgeInsets.only(bottom: 64),
+          transform: Matrix4.translationValues(0, _isHovered ? -15.0 : 0, 0),
           decoration: BoxDecoration(
             color: isDark ? AppTheme.surface : Colors.white,
             borderRadius: BorderRadius.circular(40),
@@ -88,7 +89,7 @@ class _ProjectCardState extends State<_ProjectCard> {
             boxShadow: [
               BoxShadow(
                 color: _isHovered
-                    ? AppTheme.secondary.withValues(alpha: 0.1)
+                    ? AppTheme.secondary.withValues(alpha: 0.2)
                     : Colors.black.withValues(alpha: 0.2),
                 blurRadius: _isHovered ? 60 : 40,
                 offset: Offset(0, _isHovered ? 30 : 20),
@@ -125,14 +126,15 @@ class _ProjectCardState extends State<_ProjectCard> {
         image: DecorationImage(
           image: AssetImage(widget.project.imageUrl),
           fit: BoxFit.cover,
-          opacity: _isHovered ? 0.9 : 0.7,
+          opacity: _isHovered ? 0.95 : 0.7,
         ),
       ),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 500),
         color: _isHovered
-            ? AppTheme.primary.withValues(alpha: 0.1)
+            ? AppTheme.primary.withValues(alpha: 0.05)
             : Colors.transparent,
+        child: _isHovered ? const Center(child: Icon(Icons.open_in_new, color: Colors.white, size: 48)) : null,
       ),
     );
   }
@@ -145,16 +147,17 @@ class _ProjectCardState extends State<_ProjectCard> {
         children: [
           Row(
             children: [
-              Container(
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: AppTheme.secondary.withValues(alpha: 0.1),
+                  color: _isHovered ? AppTheme.secondary : AppTheme.secondary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Text(
                   'Project',
                   style: theme.textTheme.labelLarge?.copyWith(
-                    color: AppTheme.secondary,
+                    color: _isHovered ? Colors.white : AppTheme.secondary,
                     fontSize: 12,
                     letterSpacing: 1,
                   ),
@@ -246,7 +249,8 @@ class _LinkButton extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () => UrlUtils.launch(url),
-        child: Container(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           decoration: BoxDecoration(
             color: isDark ? Colors.white : Colors.black,

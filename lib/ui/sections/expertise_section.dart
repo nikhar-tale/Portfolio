@@ -68,8 +68,10 @@ class _ExpertiseCardState extends State<_ExpertiseCard> {
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic,
         width: 350,
         padding: const EdgeInsets.all(40),
+        transform: Matrix4.translationValues(0, _isHovered ? -10.0 : 0, 0)..scale(_isHovered ? 1.02 : 1.0),
         decoration: BoxDecoration(
           color: isDark ? AppTheme.surface : Colors.white,
           borderRadius: BorderRadius.circular(32),
@@ -83,7 +85,7 @@ class _ExpertiseCardState extends State<_ExpertiseCard> {
           boxShadow: [
             BoxShadow(
               color: _isHovered
-                  ? AppTheme.secondary.withValues(alpha: 0.1)
+                  ? AppTheme.secondary.withValues(alpha: 0.15)
                   : Colors.black.withValues(alpha: 0.1),
               blurRadius: _isHovered ? 40 : 20,
               offset: Offset(0, _isHovered ? 20 : 10),
