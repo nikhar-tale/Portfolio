@@ -101,7 +101,6 @@ class AppTheme {
       
       iconTheme: const IconThemeData(
         color: Color(0xFF1D1D1F),
-        size: 24,
       ),
     );
   }
@@ -183,9 +182,7 @@ class AppTheme {
       
       iconTheme: const IconThemeData(
         color: textPrimary,
-        size: 24,
       ),
     );
   }
 }
-

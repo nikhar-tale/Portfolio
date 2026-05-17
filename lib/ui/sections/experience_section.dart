@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
+import 'package:portfolio_web/models/experience.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
 
 class ExperienceSection extends StatelessWidget {
@@ -20,12 +21,11 @@ class ExperienceSection extends StatelessWidget {
           width: double.infinity,
           color: theme.colorScheme.surface,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Semantics(
                 header: true,
                 child: Text(
-                  "Experience",
+                  'Experience',
                   style: theme.textTheme.displaySmall?.copyWith(
                     fontSize: isMobile ? 40 : 64,
                   ),
@@ -49,10 +49,9 @@ class ExperienceSection extends StatelessWidget {
 }
 
 class _ExperienceRow extends StatefulWidget {
-  final Map<String, dynamic> experience;
-  final bool isMobile;
-
   const _ExperienceRow({required this.experience, required this.isMobile});
+  final Experience experience;
+  final bool isMobile;
 
   @override
   State<_ExperienceRow> createState() => _ExperienceRowState();
@@ -68,62 +67,68 @@ class _ExperienceRowState extends State<_ExperienceRow> {
     final isDark = theme.brightness == Brightness.dark;
 
     return Semantics(
-      label: "Professional experience at ${widget.experience['company']} as ${widget.experience['role']} from ${widget.experience['duration']}",
+      label:
+          'Professional experience at ${widget.experience.company} as ${widget.experience.role} from ${widget.experience.duration}',
       child: GestureDetector(
         onTapDown: (_) => setState(() => _isHovered = true),
         onTapUp: (_) => setState(() => _isHovered = false),
         onTapCancel: () => setState(() => _isHovered = false),
         child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOutCubic,
-          margin: const EdgeInsets.only(bottom: 24),
-          padding: const EdgeInsets.all(32),
-          decoration: BoxDecoration(
-            color: _active 
-              ? (isDark ? Colors.white.withValues(alpha: 0.02) : Colors.black.withValues(alpha: 0.02))
-              : Colors.transparent,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: _active 
-                ? (isDark ? Colors.white.withValues(alpha: 0.1) : Colors.black.withValues(alpha: 0.05))
-                : Colors.transparent,
+          onEnter: (_) => setState(() => _isHovered = true),
+          onExit: (_) => setState(() => _isHovered = false),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutCubic,
+            margin: const EdgeInsets.only(bottom: 24),
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: _active
+                  ? (isDark
+                      ? Colors.white.withValues(alpha: 0.02)
+                      : Colors.black.withValues(alpha: 0.02))
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: _active
+                    ? (isDark
+                        ? Colors.white.withValues(alpha: 0.1)
+                        : Colors.black.withValues(alpha: 0.05))
+                    : Colors.transparent,
+              ),
+              boxShadow: _active
+                  ? [
+                      BoxShadow(
+                        color: AppTheme.primary.withValues(alpha: 0.05),
+                        blurRadius: 30,
+                        offset: const Offset(0, 10),
+                      )
+                    ]
+                  : [],
             ),
-            boxShadow: _active
-                ? [
-                    BoxShadow(
-                      color: AppTheme.primary.withValues(alpha: 0.05),
-                      blurRadius: 30,
-                      offset: const Offset(0, 10),
-                    )
-                  ]
-                : [],
+            child: widget.isMobile
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(theme, isDark),
+                      const SizedBox(height: 24),
+                      _buildDetails(theme, isDark),
+                    ],
+                  )
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 250,
+                        child: _buildHeader(theme, isDark),
+                      ),
+                      Expanded(
+                        child: _buildDetails(theme, isDark),
+                      ),
+                    ],
+                  ),
           ),
-          child: widget.isMobile
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildHeader(theme, isDark),
-                    const SizedBox(height: 24),
-                    _buildDetails(theme, isDark),
-                  ],
-                )
-              : Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 250,
-                      child: _buildHeader(theme, isDark),
-                    ),
-                    Expanded(
-                      child: _buildDetails(theme, isDark),
-                    ),
-                  ],
-                ),
         ),
-      )),
+      ),
     );
   }
 
@@ -135,17 +140,27 @@ class _ExperienceRowState extends State<_ExperienceRow> {
           duration: const Duration(milliseconds: 300),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: _active ? AppTheme.secondary.withValues(alpha: 0.1) : (isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05)),
+            color: _active
+                ? AppTheme.secondary.withValues(alpha: 0.1)
+                : (isDark
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : Colors.black.withValues(alpha: 0.05)),
             borderRadius: BorderRadius.circular(100),
             border: Border.all(
-              color: _active ? AppTheme.secondary.withValues(alpha: 0.3) : (isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05)),
+              color: _active
+                  ? AppTheme.secondary.withValues(alpha: 0.3)
+                  : (isDark
+                      ? Colors.white.withValues(alpha: 0.05)
+                      : Colors.black.withValues(alpha: 0.05)),
             ),
           ),
           child: Text(
-            widget.experience['duration'],
+            widget.experience.duration,
             style: theme.textTheme.labelLarge?.copyWith(
               fontSize: 12,
-              color: _active ? AppTheme.secondary : theme.textTheme.bodyMedium?.color,
+              color: _active
+                  ? AppTheme.secondary
+                  : theme.textTheme.bodyMedium?.color,
               letterSpacing: 1,
             ),
           ),
@@ -153,14 +168,23 @@ class _ExperienceRowState extends State<_ExperienceRow> {
         const SizedBox(height: 24),
         Row(
           children: [
-            Icon(Icons.business, size: 20, color: _active ? theme.textTheme.displayLarge?.color : theme.textTheme.bodyMedium?.color),
+            Icon(
+              Icons.business,
+              size: 20,
+              color: _active
+                  ? theme.textTheme.displayLarge?.color
+                  : theme.textTheme.bodyMedium?.color,
+            ),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                widget.experience['company'],
+                widget.experience.company,
                 style: theme.textTheme.headlineMedium?.copyWith(
                   fontSize: 20,
-                  color: _active ? theme.textTheme.displayLarge?.color : theme.textTheme.displayLarge?.color?.withValues(alpha: 0.8),
+                  color: _active
+                      ? theme.textTheme.displayLarge?.color
+                      : theme.textTheme.displayLarge?.color
+                          ?.withValues(alpha: 0.8),
                 ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -180,12 +204,14 @@ class _ExperienceRowState extends State<_ExperienceRow> {
           duration: const Duration(milliseconds: 300),
           style: theme.textTheme.headlineMedium!.copyWith(
             fontSize: 24,
-            color: _active ? AppTheme.secondary : theme.textTheme.displayLarge?.color,
+            color: _active
+                ? AppTheme.secondary
+                : theme.textTheme.displayLarge?.color,
           ),
-          child: Text(widget.experience['role']),
+          child: Text(widget.experience.role),
         ),
         const SizedBox(height: 24),
-        ...(widget.experience['bullets'] as List<String>).map((bullet) {
+        ...widget.experience.bullets.map((bullet) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Row(
@@ -197,14 +223,19 @@ class _ExperienceRowState extends State<_ExperienceRow> {
                   child: Icon(
                     Icons.arrow_right_rounded,
                     size: 20,
-                    color: _active ? AppTheme.secondary : theme.textTheme.bodyMedium?.color,
+                    color: _active
+                        ? AppTheme.secondary
+                        : theme.textTheme.bodyMedium?.color,
                   ),
                 ),
                 Expanded(
                   child: AnimatedDefaultTextStyle(
                     duration: const Duration(milliseconds: 300),
                     style: theme.textTheme.bodyMedium!.copyWith(
-                      color: _active ? theme.textTheme.displayLarge?.color?.withValues(alpha: 0.9) : theme.textTheme.bodyMedium?.color,
+                      color: _active
+                          ? theme.textTheme.displayLarge?.color
+                              ?.withValues(alpha: 0.9)
+                          : theme.textTheme.bodyMedium?.color,
                     ),
                     child: Text(bullet),
                   ),

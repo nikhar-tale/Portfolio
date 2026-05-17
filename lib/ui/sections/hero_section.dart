@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:portfolio_web/theme/app_theme.dart';
-import 'package:portfolio_web/data/portfolio_data.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:simple_icons/simple_icons.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_web/data/portfolio_data.dart';
+import 'package:portfolio_web/theme/app_theme.dart';
+import 'package:portfolio_web/utils/url_utils.dart';
+import 'package:simple_icons/simple_icons.dart';
+
 class HeroSection extends StatelessWidget {
+  const HeroSection({required this.onViewProjects, super.key});
   final VoidCallback onViewProjects;
-  
-  const HeroSection({super.key, required this.onViewProjects});
 
   @override
   Widget build(BuildContext context) {
@@ -32,39 +32,106 @@ class HeroSection extends StatelessWidget {
 
               // Background floating brand icons
               // Flutter (Light Blue)
-              _FloatingIcon(icon: SimpleIcons.flutter, color: const Color(0xFF54C5F8), alignment: Alignment(isMobile ? -0.8 : -0.6, isMobile ? -0.8 : -0.7), size: isMobile ? 30 : 60, delay: 0.0, isMobile: isMobile),
+              _FloatingIcon(
+                icon: SimpleIcons.flutter,
+                color: const Color(0xFF54C5F8),
+                alignment: Alignment(
+                  isMobile ? -0.8 : -0.6,
+                  isMobile ? -0.8 : -0.7,
+                ),
+                size: isMobile ? 30 : 60,
+                delay: 0,
+                isMobile: isMobile,
+              ),
               // Firebase (Yellow/Orange)
-              _FloatingIcon(icon: SimpleIcons.firebase, color: const Color(0xFFFFCA28), alignment: Alignment(isMobile ? 0.7 : 0.5, isMobile ? -0.9 : -0.6), size: isMobile ? 25 : 50, delay: 1.5, isMobile: isMobile),
+              _FloatingIcon(
+                icon: SimpleIcons.firebase,
+                color: const Color(0xFFFFCA28),
+                alignment:
+                    Alignment(isMobile ? 0.7 : 0.5, isMobile ? -0.9 : -0.6),
+                size: isMobile ? 25 : 50,
+                delay: 1.5,
+                isMobile: isMobile,
+              ),
               // AWS (Orange)
-              _FloatingIcon(icon: FontAwesomeIcons.aws, color: const Color(0xFFFF9900), alignment: Alignment(isMobile ? -0.9 : -0.7, isMobile ? 0.1 : 0.2), size: isMobile ? 20 : 40, delay: 0.8, isMobile: isMobile),
+              _FloatingIcon(
+                icon: FontAwesomeIcons.aws,
+                color: const Color(0xFFFF9900),
+                alignment:
+                    Alignment(isMobile ? -0.9 : -0.7, isMobile ? 0.1 : 0.2),
+                size: isMobile ? 20 : 40,
+                delay: 0.8,
+                isMobile: isMobile,
+              ),
               // Apple (White)
-              _FloatingIcon(icon: FontAwesomeIcons.apple, color: Colors.white, alignment: Alignment(isMobile ? 0.8 : 0.6, isMobile ? 0.2 : 0.1), size: isMobile ? 25 : 45, delay: 2.2, isMobile: isMobile),
+              _FloatingIcon(
+                icon: FontAwesomeIcons.apple,
+                color: Colors.white,
+                alignment:
+                    Alignment(isMobile ? 0.8 : 0.6, isMobile ? 0.2 : 0.1),
+                size: isMobile ? 25 : 45,
+                delay: 2.2,
+                isMobile: isMobile,
+              ),
               // Android (Green)
-              _FloatingIcon(icon: FontAwesomeIcons.android, color: const Color(0xFF3DDC84), alignment: Alignment(isMobile ? -0.7 : -0.5, isMobile ? 0.8 : 0.7), size: isMobile ? 35 : 70, delay: 1.2, isMobile: isMobile),
+              _FloatingIcon(
+                icon: FontAwesomeIcons.android,
+                color: const Color(0xFF3DDC84),
+                alignment:
+                    Alignment(isMobile ? -0.7 : -0.5, isMobile ? 0.8 : 0.7),
+                size: isMobile ? 35 : 70,
+                delay: 1.2,
+                isMobile: isMobile,
+              ),
               // Dart (Blue)
-              _FloatingIcon(icon: SimpleIcons.dart, color: const Color(0xFF0175C2), alignment: Alignment(isMobile ? 0.9 : 0.7, isMobile ? 0.7 : 0.6), size: isMobile ? 25 : 50, delay: 2.8, isMobile: isMobile),
+              _FloatingIcon(
+                icon: SimpleIcons.dart,
+                color: const Color(0xFF0175C2),
+                alignment:
+                    Alignment(isMobile ? 0.9 : 0.7, isMobile ? 0.7 : 0.6),
+                size: isMobile ? 25 : 50,
+                delay: 2.8,
+                isMobile: isMobile,
+              ),
               // TensorFlow (Orange)
-              _FloatingIcon(icon: SimpleIcons.tensorflow, color: const Color(0xFFFF6F00), alignment: Alignment(isMobile ? -0.3 : -0.1, isMobile ? -0.95 : -0.85), size: isMobile ? 20 : 35, delay: 0.5, isMobile: isMobile),
+              _FloatingIcon(
+                icon: SimpleIcons.tensorflow,
+                color: const Color(0xFFFF6F00),
+                alignment:
+                    Alignment(isMobile ? -0.3 : -0.1, isMobile ? -0.95 : -0.85),
+                size: isMobile ? 20 : 35,
+                delay: 0.5,
+                isMobile: isMobile,
+              ),
               // Shorebird
-              _FloatingIcon(icon: FontAwesomeIcons.dove, color: const Color(0xFFE91E63), alignment: Alignment(isMobile ? 0.4 : 0.2, isMobile ? 0.9 : 0.85), size: isMobile ? 20 : 40, delay: 3.5, isMobile: isMobile),
-              
+              _FloatingIcon(
+                icon: FontAwesomeIcons.dove,
+                color: const Color(0xFFE91E63),
+                alignment:
+                    Alignment(isMobile ? 0.4 : 0.2, isMobile ? 0.9 : 0.85),
+                size: isMobile ? 20 : 40,
+                delay: 3.5,
+                isMobile: isMobile,
+              ),
+
               // --- DARK VIGNETTE TO ENSURE TEXT LEGIBILITY ---
-              // This creates a soft, dark blur behind the text, allowing the icons to
-              // glow on the edges of the screen but perfectly shielding the text in the center.
               Container(
                 decoration: BoxDecoration(
                   gradient: RadialGradient(
                     colors: [
-                      AppTheme.background.withValues(alpha: 0.95), // Solid dark center
-                      AppTheme.background.withValues(alpha: 0.6),  // Semi-dark middle
-                      AppTheme.background.withValues(alpha: 0.1),  // Almost transparent edges to show aurora
+                      AppTheme.background
+                          .withValues(alpha: 0.95), // Solid dark center
+                      AppTheme.background
+                          .withValues(alpha: 0.6), // Semi-dark middle
+                      AppTheme.background
+                          .withValues(alpha: 0.1), // Almost transparent edges
                     ],
-                    stops: const [0.2, 0.6, 1.0],
+                    stops: const [0.2, 0.6, 1],
                     radius: isMobile ? 0.9 : 0.7,
                   ),
                 ),
               ),
-              
+
               // --- MAIN FOREGROUND CONTENT ---
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -72,15 +139,19 @@ class HeroSection extends StatelessWidget {
                   vertical: 100, // Safe padding
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: AppTheme.surface,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.1),
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withValues(alpha: 0.5),
@@ -94,14 +165,18 @@ class HeroSection extends StatelessWidget {
                         children: [
                           const Icon(Icons.apple, color: Colors.white, size: 16),
                           const SizedBox(width: 8),
-                          const Icon(Icons.android, color: AppTheme.secondary, size: 16),
+                          const Icon(
+                            Icons.android,
+                            color: AppTheme.secondary,
+                            size: 16,
+                          ),
                           const SizedBox(width: 12),
-                          Text(
-                            "Mobile Engineer",
-                            style: GoogleFonts.inter(
+                          const Text(
+                            'Mobile Engineer',
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -109,39 +184,42 @@ class HeroSection extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
                     Semantics(
-                      label: "Hero section title",
+                      label: 'Hero section title',
                       child: Text(
                         "Hi, I'm Nikhar Tale.",
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          color: AppTheme.secondary,
-                          fontSize: isMobile ? 24 : 32,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                  color: AppTheme.secondary,
+                                  fontSize: isMobile ? 24 : 32,
+                                ),
                       ),
                     ),
                     const SizedBox(height: 12),
                     Semantics(
-                      label: "Primary skill proposition",
+                      label: 'Primary skill proposition',
                       child: Text(
-                        "Crafting Native\nExperiences.",
+                        'Crafting Native\nExperiences.',
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                          fontSize: isMobile ? 48 : 96,
-                        ),
+                        style:
+                            Theme.of(context).textTheme.displayLarge?.copyWith(
+                                  fontSize: isMobile ? 48 : 96,
+                                ),
                       ),
                     ),
                     const SizedBox(height: 24),
                     Semantics(
-                      label: "Short biography",
+                      label: 'Short biography',
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 600),
                         child: Text(
                           PortfolioData.bio,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: isMobile ? 18 : 22,
-                            color: AppTheme.textSecondary,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    fontSize: isMobile ? 18 : 22,
+                                    color: AppTheme.textSecondary,
+                                  ),
                         ),
                       ),
                     ),
@@ -153,19 +231,22 @@ class HeroSection extends StatelessWidget {
                       children: [
                         Semantics(
                           button: true,
-                          label: "Navigate to Projects section",
+                          label: 'Navigate to Projects section',
                           child: ElevatedButton(
                             onPressed: onViewProjects,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: Colors.black,
-                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 20,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(100),
                               ),
                             ),
                             child: Text(
-                              "View Projects",
+                              'View Projects',
                               style: GoogleFonts.inter(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -175,28 +256,33 @@ class HeroSection extends StatelessWidget {
                         ),
                         Semantics(
                           button: true,
-                          label: "Download my professional resume",
+                          label: 'Download my professional resume',
                           child: ElevatedButton(
-                            onPressed: () => launchUrl(
-                              Uri.parse(PortfolioData.resumeUrl),
-                              mode: LaunchMode.externalApplication,
-                            ),
+                            onPressed: () =>
+                                UrlUtils.launch(PortfolioData.resumeUrl),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white.withValues(alpha: 0.05),
+                              backgroundColor:
+                                  Colors.white.withValues(alpha: 0.05),
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 20,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(100),
-                                side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                                side: BorderSide(
+                                  color: Colors.white.withValues(alpha: 0.1),
+                                ),
                               ),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(Icons.description_outlined, size: 20),
+                                const Icon(Icons.description_outlined,
+                                    size: 20),
                                 const SizedBox(width: 8),
                                 Text(
-                                  "Resume",
+                                  'Resume',
                                   style: GoogleFonts.inter(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -208,19 +294,23 @@ class HeroSection extends StatelessWidget {
                         ),
                         Semantics(
                           button: true,
-                          label: "Send me an email to get in touch",
+                          label: 'Send me an email to get in touch',
                           child: ElevatedButton(
-                            onPressed: () => launchUrl(Uri.parse('mailto:${PortfolioData.email}')),
+                            onPressed: () =>
+                                UrlUtils.launchMail(PortfolioData.email),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppTheme.surface,
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 20,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(100),
                               ),
                             ),
                             child: Text(
-                              "Get in Touch",
+                              'Get in Touch',
                               style: GoogleFonts.inter(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -242,13 +332,6 @@ class HeroSection extends StatelessWidget {
 }
 
 class _FloatingIcon extends StatefulWidget {
-  final IconData icon;
-  final Color color;
-  final Alignment alignment;
-  final double size;
-  final double delay;
-  final bool isMobile;
-
   const _FloatingIcon({
     required this.icon,
     required this.color,
@@ -257,12 +340,19 @@ class _FloatingIcon extends StatefulWidget {
     required this.delay,
     required this.isMobile,
   });
+  final IconData icon;
+  final Color color;
+  final Alignment alignment;
+  final double size;
+  final double delay;
+  final bool isMobile;
 
   @override
   State<_FloatingIcon> createState() => _FloatingIconState();
 }
 
-class _FloatingIconState extends State<_FloatingIcon> with SingleTickerProviderStateMixin {
+class _FloatingIconState extends State<_FloatingIcon>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
   @override
@@ -272,7 +362,7 @@ class _FloatingIconState extends State<_FloatingIcon> with SingleTickerProviderS
       vsync: this,
       duration: const Duration(seconds: 4),
     );
-    
+
     // Stagger the animations
     Future.delayed(Duration(milliseconds: (widget.delay * 1000).toInt()), () {
       if (mounted) {
@@ -298,7 +388,8 @@ class _FloatingIconState extends State<_FloatingIcon> with SingleTickerProviderS
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          final dy = math.sin(_controller.value * math.pi) * 15.0; // Bob up and down by 15 pixels
+          final dy = math.sin(_controller.value * math.pi) *
+              15.0; // Bob up and down by 15 pixels
           return Transform.translate(
             offset: Offset(0, dy),
             child: child,
@@ -309,19 +400,24 @@ class _FloatingIconState extends State<_FloatingIcon> with SingleTickerProviderS
           decoration: BoxDecoration(
             color: bubbleColor.withValues(alpha: isDark ? 0.03 : 0.05),
             shape: BoxShape.circle,
-            border: Border.all(color: bubbleColor.withValues(alpha: isDark ? 0.05 : 0.1), width: 1),
+            border: Border.all(
+              color: bubbleColor.withValues(alpha: isDark ? 0.05 : 0.1),
+            ),
             boxShadow: [
               BoxShadow(
-                color: widget.color.withValues(alpha: widget.isMobile ? 0.1 : 0.15),
+                color:
+                    widget.color.withValues(alpha: widget.isMobile ? 0.1 : 0.15),
                 blurRadius: widget.isMobile ? 30 : 50,
                 spreadRadius: widget.isMobile ? 5 : 10,
-              )
+              ),
             ],
           ),
           child: Icon(
             widget.icon,
             size: widget.size,
-            color: widget.color.withValues(alpha: widget.isMobile ? 0.5 : 0.8), // Slightly more transparent on mobile to ensure text readability
+            color: widget.color.withValues(
+              alpha: widget.isMobile ? 0.5 : 0.8,
+            ), // Slightly more transparent on mobile
           ),
         ),
       ),
@@ -333,10 +429,12 @@ class _AnimatedAuroraBackground extends StatefulWidget {
   const _AnimatedAuroraBackground();
 
   @override
-  State<_AnimatedAuroraBackground> createState() => _AnimatedAuroraBackgroundState();
+  State<_AnimatedAuroraBackground> createState() =>
+      _AnimatedAuroraBackgroundState();
 }
 
-class _AnimatedAuroraBackgroundState extends State<_AnimatedAuroraBackground> with SingleTickerProviderStateMixin {
+class _AnimatedAuroraBackgroundState extends State<_AnimatedAuroraBackground>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -356,10 +454,6 @@ class _AnimatedAuroraBackgroundState extends State<_AnimatedAuroraBackground> wi
 
   @override
   Widget build(BuildContext context) {
-    // Flutter Web Performance Optimization:
-    // We avoid using BackdropFilter with high sigma values because it causes severe
-    // rendering lag on CanvasKit/WebGL. Instead, we use RadialGradients which
-    // provide the exact same blurred orb effect but cost 0 extra GPU passes!
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -373,12 +467,12 @@ class _AnimatedAuroraBackgroundState extends State<_AnimatedAuroraBackground> wi
               child: Container(
                 width: 600,
                 height: 600,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      Colors.blueAccent.withValues(alpha: 0.2),
-                      Colors.blueAccent.withValues(alpha: 0.0),
+                      Color.fromARGB(51, 68, 138, 255),
+                      Color.fromARGB(0, 68, 138, 255),
                     ],
                   ),
                 ),
@@ -386,17 +480,18 @@ class _AnimatedAuroraBackgroundState extends State<_AnimatedAuroraBackground> wi
             ),
             // Hot Pink Orb
             Positioned(
-              right: MediaQuery.of(context).size.width * 0.2 + 200 * math.cos(t + 2),
+              right:
+                  MediaQuery.of(context).size.width * 0.2 + 200 * math.cos(t + 2),
               top: 100 + 150 * math.sin(t + 2),
               child: Container(
                 width: 700,
                 height: 700,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      Colors.pinkAccent.withValues(alpha: 0.2),
-                      Colors.pinkAccent.withValues(alpha: 0.0),
+                      Color.fromARGB(51, 255, 64, 129),
+                      Color.fromARGB(0, 255, 64, 129),
                     ],
                   ),
                 ),
@@ -409,12 +504,12 @@ class _AnimatedAuroraBackgroundState extends State<_AnimatedAuroraBackground> wi
               child: Container(
                 width: 800,
                 height: 800,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      Colors.deepPurpleAccent.withValues(alpha: 0.2),
-                      Colors.deepPurpleAccent.withValues(alpha: 0.0),
+                      Color.fromARGB(51, 124, 77, 255),
+                      Color.fromARGB(0, 124, 77, 255),
                     ],
                   ),
                 ),

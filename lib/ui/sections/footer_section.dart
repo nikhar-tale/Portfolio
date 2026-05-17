@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_web/theme/app_theme.dart';
-import 'package:portfolio_web/data/portfolio_data.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolio_web/data/portfolio_data.dart';
+import 'package:portfolio_web/theme/app_theme.dart';
+import 'package:portfolio_web/utils/url_utils.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
@@ -24,13 +24,17 @@ class FooterSection extends StatelessWidget {
           decoration: BoxDecoration(
             color: isDark ? Colors.black : theme.colorScheme.surface,
             border: Border(
-              top: BorderSide(color: isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05), width: 1),
+              top: BorderSide(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : Colors.black.withValues(alpha: 0.05),
+              ),
             ),
           ),
           child: Column(
             children: [
               Semantics(
-                label: "Footer call to action",
+                label: 'Footer call to action',
                 child: Text(
                   "Let's build something\namazing together.",
                   textAlign: TextAlign.center,
@@ -43,13 +47,14 @@ class FooterSection extends StatelessWidget {
               SizedBox(height: isMobile ? 32 : 48),
               Semantics(
                 button: true,
-                label: "Send an email to contact me",
+                label: 'Send an email to contact me',
                 child: ElevatedButton.icon(
-                  onPressed: () => launchUrl(Uri.parse('mailto:${PortfolioData.email}')),
+                  onPressed: () => UrlUtils.launchMail(PortfolioData.email),
                   icon: const Icon(Icons.email),
                   label: Text(
-                    "Get in Touch",
-                    style: theme.textTheme.labelLarge?.copyWith(fontSize: isMobile ? 16 : 18),
+                    'Get in Touch',
+                    style: theme.textTheme.labelLarge
+                        ?.copyWith(fontSize: isMobile ? 16 : 18),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.secondary,
@@ -74,24 +79,33 @@ class FooterSection extends StatelessWidget {
                 children: [
                   Semantics(
                     button: true,
-                    label: "Visit my GitHub profile",
-                    child: _SocialIcon(icon: FontAwesomeIcons.github, url: PortfolioData.github),
+                    label: 'Visit my GitHub profile',
+                    child: const _SocialIcon(
+                      icon: FontAwesomeIcons.github,
+                      url: PortfolioData.github,
+                    ),
                   ),
                   Semantics(
                     button: true,
-                    label: "Visit my LinkedIn profile",
-                    child: _SocialIcon(icon: FontAwesomeIcons.linkedin, url: PortfolioData.linkedin),
+                    label: 'Visit my LinkedIn profile',
+                    child: const _SocialIcon(
+                      icon: FontAwesomeIcons.linkedin,
+                      url: PortfolioData.linkedin,
+                    ),
                   ),
                   Semantics(
                     button: true,
-                    label: "Call me via phone",
-                    child: _SocialIcon(icon: Icons.phone, url: 'tel:${PortfolioData.phone}'),
+                    label: 'Call me via phone',
+                    child: const _SocialIcon(
+                      icon: Icons.phone,
+                      url: 'tel:${PortfolioData.phone}',
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 32),
               Text(
-                "© ${DateTime.now().year} Nikhar Tale. Built with Flutter.",
+                '© ${DateTime.now().year} Nikhar Tale. Built with Flutter.',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14),
               ),
@@ -103,17 +117,27 @@ class FooterSection extends StatelessWidget {
   }
 }
 
-class _SocialIcon extends StatefulWidget {
+class _SocialIcon extends StatelessWidget {
+  const _SocialIcon({required this.icon, required this.url, super.key});
   final IconData icon;
   final String url;
 
-  const _SocialIcon({required this.icon, required this.url});
-
   @override
-  State<_SocialIcon> createState() => _SocialIconState();
+  Widget build(BuildContext context) {
+    return _SocialIconHover(icon: icon, url: url);
+  }
 }
 
-class _SocialIconState extends State<_SocialIcon> {
+class _SocialIconHover extends StatefulWidget {
+  const _SocialIconHover({required this.icon, required this.url, super.key});
+  final IconData icon;
+  final String url;
+
+  @override
+  State<_SocialIconHover> createState() => _SocialIconHoverState();
+}
+
+class _SocialIconHoverState extends State<_SocialIconHover> {
   bool _isHovered = false;
 
   @override
@@ -125,20 +149,30 @@ class _SocialIconState extends State<_SocialIcon> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
-        onTap: () => launchUrl(Uri.parse(widget.url)),
+        onTap: () => UrlUtils.launch(widget.url),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: _isHovered ? (isDark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.05)) : Colors.transparent,
+            color: _isHovered
+                ? (isDark
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : Colors.black.withValues(alpha: 0.05))
+                : Colors.transparent,
             shape: BoxShape.circle,
             border: Border.all(
-              color: _isHovered ? (isDark ? Colors.white.withValues(alpha: 0.2) : Colors.black.withValues(alpha: 0.1)) : Colors.transparent,
-            )
+              color: _isHovered
+                  ? (isDark
+                      ? Colors.white.withValues(alpha: 0.2)
+                      : Colors.black.withValues(alpha: 0.1))
+                  : Colors.transparent,
+            ),
           ),
           child: Icon(
             widget.icon,
-            color: _isHovered ? theme.textTheme.displayLarge?.color : theme.textTheme.bodyMedium?.color,
+            color: _isHovered
+                ? theme.textTheme.displayLarge?.color
+                : theme.textTheme.bodyMedium?.color,
             size: 24,
           ),
         ),

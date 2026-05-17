@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class NavButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onTap;
   
   const NavButton({
-    super.key, 
-    required this.text, 
-    required this.onTap,
+    required this.text, required this.onTap, super.key,
   });
+  final String text;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
