@@ -118,7 +118,7 @@ class FooterSection extends StatelessWidget {
 }
 
 class _SocialIcon extends StatelessWidget {
-  const _SocialIcon({required this.icon, required this.url, super.key});
+  const _SocialIcon({required this.icon, required this.url});
   final IconData icon;
   final String url;
 
@@ -129,7 +129,7 @@ class _SocialIcon extends StatelessWidget {
 }
 
 class _SocialIconHover extends StatefulWidget {
-  const _SocialIconHover({required this.icon, required this.url, super.key});
+  const _SocialIconHover({required this.icon, required this.url});
   final IconData icon;
   final String url;
 

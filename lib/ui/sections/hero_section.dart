@@ -160,18 +160,18 @@ class HeroSection extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.apple, color: Colors.white, size: 16),
-                          const SizedBox(width: 8),
-                          const Icon(
+                          Icon(Icons.apple, color: Colors.white, size: 16),
+                          SizedBox(width: 8),
+                          Icon(
                             Icons.android,
                             color: AppTheme.secondary,
                             size: 16,
                           ),
-                          const SizedBox(width: 12),
-                          const Text(
+                          SizedBox(width: 12),
+                          Text(
                             'Mobile Engineer',
                             style: TextStyle(
                               color: Colors.white,

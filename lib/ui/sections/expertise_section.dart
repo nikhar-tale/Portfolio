@@ -71,7 +71,8 @@ class _ExpertiseCardState extends State<_ExpertiseCard> {
         curve: Curves.easeOutCubic,
         width: 350,
         padding: const EdgeInsets.all(40),
-        transform: Matrix4.translationValues(0, _isHovered ? -10.0 : 0, 0)..scale(_isHovered ? 1.02 : 1.0),
+        transform: Matrix4.translationValues(0, _isHovered ? -10.0 : 0, 0)
+          ..multiply(Matrix4.diagonal3Values(_isHovered ? 1.02 : 1, _isHovered ? 1.02 : 1, 1)),
         decoration: BoxDecoration(
           color: isDark ? AppTheme.surface : Colors.white,
           borderRadius: BorderRadius.circular(32),

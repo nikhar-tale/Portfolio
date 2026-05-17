@@ -33,10 +33,8 @@ class AppTheme {
       colorScheme: const ColorScheme.light(
         primary: primary,
         secondary: secondary,
-        surface: Colors.white,
         onSurface: Color(0xFF1D1D1F),
       ),
-      useMaterial3: true,
       
       textTheme: TextTheme(
         displayLarge: GoogleFonts.outfit(
@@ -115,9 +113,7 @@ class AppTheme {
         primary: primary,
         secondary: secondary,
         surface: surface,
-        onSurface: textPrimary,
       ),
-      useMaterial3: true,
       
       textTheme: TextTheme(
         displayLarge: GoogleFonts.outfit(
