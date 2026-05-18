@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  
+  <!-- Primary Meta Tags -->
+  <title>Nikhar Tale | Senior Flutter Architect & AI Engineer</title>
+  <meta name="title" content="Nikhar Tale | Senior Flutter Architect & AI Engineer">
+  <meta name="description" content="Portfolio of Nikhar Tale, a Senior Flutter Engineer specializing in Clean Architecture, AI-powered mobile experiences, and high-performance cross-platform solutions at Infosys.">
+  <meta name="keywords" content="Flutter, Dart, Mobile Engineer, AI, TFLite, Clean Architecture, Nikhar Tale, Infosys, Zehntech, Android, iOS, Web Developer">
+  <meta name="author" content="Nikhar Tale">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com/nikhar-tale">
+  <meta property="og:title" content="Nikhar Tale | Senior Flutter Architect & AI Engineer">
+  <meta property="og:description" content="Exploring the intersection of high-performance mobile architecture and on-device AI.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/nikhar-tale/nikhar-tale.github.io/main/assets/thumbnail.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://github.com/nikhar-tale">
+  <meta property="twitter:title" content="Nikhar Tale | Senior Flutter Architect & AI Engineer">
+  <meta property="twitter:description" content="Exploring the intersection of high-performance mobile architecture and on-device AI.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/nikhar-tale/nikhar-tale.github.io/main/assets/thumbnail.png">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Nikhar Tale">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>
+    body {
+      background-color: #030303;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    #loading-indicator {
+      position: fixed;
+      inset: 0;
+      background: #030303;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .grid-container {
+      position: absolute;
+      width: 200vw;
+      height: 200vh;
+      bottom: -100vh;
+      left: -50vw;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px);
+      background-size: 50px 50px;
+      transform: perspective(600px) rotateX(75deg);
+      animation: gridMove 3s linear infinite;
+      z-index: 0;
+    }
+
+    .grid-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, #030303 40%, transparent 100%);
+      z-index: 1;
+    }
+
+    @keyframes gridMove {
+      0% { transform: perspective(600px) rotateX(75deg) translateY(0); }
+      100% { transform: perspective(600px) rotateX(75deg) translateY(50px); }
+    }
+
+    .loader-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 320px;
+      z-index: 10;
+      transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .loader-wrapper.fade-out {
+      opacity: 0;
+      transform: scale(1.15);
+    }
+
+    .logo-container {
+      position: relative;
+      height: 120px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .ripple {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      animation: rippleAnim 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+      z-index: 2;
+    }
+    .ripple:nth-child(2) { animation-delay: 0.8s; }
+    .ripple:nth-child(3) { animation-delay: 1.6s; }
+
+    @keyframes rippleAnim {
+      0% { width: 60px; height: 60px; opacity: 1; border-width: 2px; }
+      100% { width: 400px; height: 400px; opacity: 0; border-width: 0px; }
+    }
+
+    .logo {
+      font-size: 64px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -3px;
+      animation: floatLogo 4s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+      50% { transform: translateY(-15px); filter: drop-shadow(0 0 40px rgba(255,255,255,0.7)); }
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-bar {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 0%;
+      background: #ffffff;
+      box-shadow: 0 0 15px #fff;
+      transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .status-text {
+      margin-top: 16px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-indicator">
+    <div class="grid-container"></div>
+    <div class="grid-fade"></div>
+    <div class="loader-wrapper" id="loader-content">
+      <div class="logo-container">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="logo">NT.</div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="status-text">
+        <span id="status-message">INITIALIZING BOOTSTRAP</span>
+        <span id="percentage">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.flutterWebRenderer = "auto";
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+  
+  <script>
+    const progress = document.getElementById('progress-bar');
+    const status = document.getElementById('status-message');
+    const pct = document.getElementById('percentage');
+    
+    const messages = [
+      "INITIALIZING BOOTSTRAP",
+      "FETCHING ASSETS",
+      "COMPILING DART",
+      "READY."
+    ];
+
+    let currentProgress = 0;
+    let messageIndex = 0;
+
+    const interval = setInterval(() => {
+      currentProgress += Math.random() * 10;
+      if (currentProgress > 95) currentProgress = 95; 
+      
+      progress.style.width = currentProgress + '%';
+      pct.innerText = Math.floor(currentProgress) + '%';
+
+      let newIndex = Math.floor((currentProgress / 100) * messages.length);
+      if (newIndex >= messages.length - 1) newIndex = messages.length - 2;
+      
+      if (newIndex !== messageIndex) {
+        messageIndex = newIndex;
+        status.innerText = messages[messageIndex];
+      }
+    }, 200);
+
+    window.addEventListener('flutter-first-frame', function() {
+      clearInterval(interval);
+      progress.style.width = '100%';
+      pct.innerText = '100%';
+      status.innerText = messages[messages.length - 1];
+      
+      var loader = document.getElementById('loading-indicator');
+      var content = document.getElementById('loader-content');
+      
+      if (loader && content) {
+        setTimeout(() => {
+          content.classList.add('fade-out');
+          loader.style.opacity = '0';
+          setTimeout(() => loader.remove(), 800);
+        }, 150);
+      }
+    });
+  </script>
+</body>
+</html>
