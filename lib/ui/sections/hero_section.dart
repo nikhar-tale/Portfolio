@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
+import 'package:portfolio_web/utils/constants.dart';
 import 'package:portfolio_web/utils/url_utils.dart';
 import 'package:simple_icons/simple_icons.dart';
 
@@ -16,7 +17,7 @@ class HeroSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 800;
+        final isMobile = constraints.maxWidth < AppConstants.mobileBreakpoint;
         final screenHeight = MediaQuery.of(context).size.height;
 
         return Container(
@@ -135,7 +136,7 @@ class HeroSection extends StatelessWidget {
               // --- MAIN FOREGROUND CONTENT ---
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: isMobile ? 24 : 100,
+                  horizontal: isMobile ? AppConstants.mobilePadding : AppConstants.desktopPadding,
                   vertical: 100, // Safe padding
                 ),
                 child: Column(

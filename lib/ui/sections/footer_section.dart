@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
+import 'package:portfolio_web/utils/constants.dart';
 import 'package:portfolio_web/utils/url_utils.dart';
 
 class FooterSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class FooterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 800;
+        final isMobile = constraints.maxWidth < AppConstants.mobileBreakpoint;
         final theme = Theme.of(context);
         final isDark = theme.brightness == Brightness.dark;
 

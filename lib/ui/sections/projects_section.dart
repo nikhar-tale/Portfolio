@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
 import 'package:portfolio_web/models/project.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
+import 'package:portfolio_web/utils/constants.dart';
 import 'package:portfolio_web/utils/url_utils.dart';
 
 class ProjectsSection extends StatelessWidget {
@@ -12,12 +13,12 @@ class ProjectsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 800;
+        final isMobile = constraints.maxWidth < AppConstants.mobileBreakpoint;
         final theme = Theme.of(context);
 
         return Container(
           padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 24 : 100,
+            horizontal: isMobile ? AppConstants.mobilePadding : AppConstants.desktopPadding,
             vertical: 100,
           ),
           width: double.infinity,
@@ -62,7 +63,8 @@ class _ProjectCardState extends State<_ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 900;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < AppConstants.mobileBreakpoint;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -71,46 +73,51 @@ class _ProjectCardState extends State<_ProjectCard> {
       child: MouseRegion(
         onEnter: (_) => setState(() => _isHovered = true),
         onExit: (_) => setState(() => _isHovered = false),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOutCubic,
-          margin: const EdgeInsets.only(bottom: 64),
-          transform: Matrix4.translationValues(0, _isHovered ? -15.0 : 0, 0),
-          decoration: BoxDecoration(
-            color: isDark ? AppTheme.surface : Colors.white,
-            borderRadius: BorderRadius.circular(40),
-            border: Border.all(
-              color: _isHovered
-                  ? AppTheme.secondary.withValues(alpha: 0.3)
-                  : (isDark
-                      ? Colors.white.withValues(alpha: 0.05)
-                      : Colors.black.withValues(alpha: 0.05)),
-            ),
-            boxShadow: [
-              BoxShadow(
+        child: GestureDetector(
+          onTapDown: (_) => setState(() => _isHovered = true),
+          onTapUp: (_) => setState(() => _isHovered = false),
+          onTapCancel: () => setState(() => _isHovered = false),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOutCubic,
+            margin: const EdgeInsets.only(bottom: 64),
+            transform: Matrix4.translationValues(0, _isHovered ? -15.0 : 0, 0),
+            decoration: BoxDecoration(
+              color: isDark ? AppTheme.surface : Colors.white,
+              borderRadius: BorderRadius.circular(40),
+              border: Border.all(
                 color: _isHovered
-                    ? AppTheme.secondary.withValues(alpha: 0.2)
-                    : Colors.black.withValues(alpha: 0.2),
-                blurRadius: _isHovered ? 60 : 40,
-                offset: Offset(0, _isHovered ? 30 : 20),
+                    ? AppTheme.secondary.withValues(alpha: 0.3)
+                    : (isDark
+                        ? Colors.white.withValues(alpha: 0.05)
+                        : Colors.black.withValues(alpha: 0.05)),
               ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(40),
-            child: isMobile
-                ? Column(
-                    children: [
-                      _buildImage(isMobile),
-                      _buildContent(theme, isMobile),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      Expanded(flex: 5, child: _buildImage(isMobile)),
-                      Expanded(flex: 6, child: _buildContent(theme, isMobile)),
-                    ],
-                  ),
+              boxShadow: [
+                BoxShadow(
+                  color: _isHovered
+                      ? AppTheme.secondary.withValues(alpha: 0.2)
+                      : Colors.black.withValues(alpha: 0.2),
+                  blurRadius: _isHovered ? 60 : 40,
+                  offset: Offset(0, _isHovered ? 30 : 20),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(40),
+              child: isMobile
+                  ? Column(
+                      children: [
+                        _buildImage(isMobile),
+                        _buildContent(theme, isMobile),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Expanded(flex: 5, child: _buildImage(isMobile)),
+                        Expanded(flex: 6, child: _buildContent(theme, isMobile)),
+                      ],
+                    ),
+            ),
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
+import 'package:portfolio_web/utils/constants.dart';
 
 class StatsSection extends StatelessWidget {
   const StatsSection({super.key});
@@ -9,7 +10,7 @@ class StatsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 800;
+        final isMobile = constraints.maxWidth < AppConstants.mobileBreakpoint;
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return Container(
           width: double.infinity,

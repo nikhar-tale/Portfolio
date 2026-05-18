@@ -40,37 +40,45 @@ class MobileMenuOverlay extends StatelessWidget {
             color: (isDark ? Colors.black : Colors.white)
                 .withValues(alpha: 0.8 * controller.value),
             child: SafeArea(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _MenuEntry(
-                      text: 'WORK',
-                      index: 0,
-                      controller: controller,
-                      onTap: () => onNav(projectsKey),
+              child: Stack(
+                children: [
+                  Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _MenuEntry(
+                            text: 'WORK',
+                            index: 0,
+                            controller: controller,
+                            onTap: () => onNav(projectsKey),
+                          ),
+                          _MenuEntry(
+                            text: 'EXPERIENCE',
+                            index: 1,
+                            controller: controller,
+                            onTap: () => onNav(experienceKey),
+                          ),
+                          _MenuEntry(
+                            text: 'RESUME',
+                            index: 2,
+                            controller: controller,
+                            onTap: () =>
+                                UrlUtils.launch(PortfolioData.resumeUrl),
+                          ),
+                          _MenuEntry(
+                            text: 'HIRE ME',
+                            index: 3,
+                            controller: controller,
+                            onTap: () => onNav(contactKey),
+                            isHighlight: true,
+                          ),
+                        ],
+                      ),
                     ),
-                    _MenuEntry(
-                      text: 'EXPERIENCE',
-                      index: 1,
-                      controller: controller,
-                      onTap: () => onNav(experienceKey),
-                    ),
-                    _MenuEntry(
-                      text: 'RESUME',
-                      index: 2,
-                      controller: controller,
-                      onTap: () => UrlUtils.launch(PortfolioData.resumeUrl),
-                    ),
-                    _MenuEntry(
-                      text: 'HIRE ME',
-                      index: 3,
-                      controller: controller,
-                      onTap: () => onNav(contactKey),
-                      isHighlight: true,
-                    ),
-                  ],
-                ),
+                  ),
+                  // Removed redundant close button to prevent confusion with the AnimatedIcon in AppBar
+                ],
               ),
             ),
           ),
@@ -115,18 +123,28 @@ class _MenuEntry extends StatelessWidget {
           child: Transform.translate(
             offset: Offset(0, 50 * (1 - anim.value)),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: GestureDetector(
-                onTap: onTap,
-                child: Text(
-                  text,
-                  style: theme.textTheme.displaySmall?.copyWith(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w900,
-                    color: isHighlight
-                        ? AppTheme.secondary
-                        : theme.colorScheme.onSurface,
-                    letterSpacing: -1,
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: onTap,
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(vertical: 24),
+                    child: Text(
+                      text,
+                      style: theme.textTheme.displaySmall?.copyWith(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w900,
+                        color: isHighlight
+                            ? AppTheme.secondary
+                            : theme.colorScheme.onSurface,
+                        letterSpacing: -1,
+                      ),
+                    ),
                   ),
                 ),
               ),

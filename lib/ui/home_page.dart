@@ -14,6 +14,7 @@ import 'package:portfolio_web/ui/sections/stats_section.dart';
 import 'package:portfolio_web/ui/widgets/mobile_menu_overlay.dart';
 import 'package:portfolio_web/ui/widgets/nav_button.dart';
 import 'package:portfolio_web/ui/widgets/reveal_animation.dart';
+import 'package:portfolio_web/utils/constants.dart';
 import 'package:portfolio_web/utils/url_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -175,7 +176,8 @@ class CustomAppBar extends StatelessWidget {
                 ),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    final isMobile = constraints.maxWidth < 900;
+                    final isMobile =
+                        constraints.maxWidth < AppConstants.mobileBreakpoint;
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

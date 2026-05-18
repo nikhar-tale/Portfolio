@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_web/data/portfolio_data.dart';
 import 'package:portfolio_web/models/experience.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
+import 'package:portfolio_web/utils/constants.dart';
 
 class ExperienceSection extends StatelessWidget {
   const ExperienceSection({super.key});
@@ -10,12 +11,12 @@ class ExperienceSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 800;
+        final isMobile = constraints.maxWidth < AppConstants.mobileBreakpoint;
         final theme = Theme.of(context);
 
         return Container(
           padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 24 : 100,
+            horizontal: isMobile ? AppConstants.mobilePadding : AppConstants.desktopPadding,
             vertical: 100,
           ),
           width: double.infinity,
